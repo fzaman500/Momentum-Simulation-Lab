@@ -10,11 +10,6 @@ class Object:
         self.speed_y = speed_y
         self.mass = mass
 
-    def move(self):
-        self.pos_x += self.speed_x
-        self.pos_y += self.speed_y
-
-
 class System:
     def __init__(self, obj1, obj2, elastic=True):
         self.obj1 = obj1
@@ -22,13 +17,18 @@ class System:
         self.elastic = elastic
 
     def elastic_collision(self):
-        pass
+        vcm_x = (self.obj1.mass * self.obj1.speed_x + self.obj2.mass * self.obj2.speed_x) / (self.obj1.mass + self.obj2.mass)
+        v1f_x = 2*vcm_x - self.obj1.speed_x
+        v2f_x = 2 * vcm_x - self.obj2.speed_x
+        vcm_y = (self.obj1.mass * self.obj1.speed_y + self.obj2.mass * self.obj2.speed_y) / (
+                    self.obj1.mass + self.obj2.mass)
+        v1f_y = 2 * vcm_y - self.obj1.speed_y
+        v2f_y = 2 * vcm_x - self.obj2.speed_y
+        return v1f_x, v2f_x, v1f_y, v2f_y
 
     def inelastic_collision(self):
-        final_vx = (self.obj1.speed_x * self.obj1.mass + self.obj2.speed_x * self.obj2.mass) / (
-                    self.obj1.mass + self.obj2.mass)
-        final_vy = (self.obj1.speed_y * self.obj1.mass + self.obj2.speed_y * self.obj2.mass) / (
-                    self.obj1.mass + self.obj2.mass)
+        final_vx = (self.obj1.speed_x * self.obj1.mass + self.obj2.speed_x * self.obj2.mass) / (self.obj1.mass + self.obj2.mass)
+        final_vy = (self.obj1.speed_y * self.obj1.mass + self.obj2.speed_y * self.obj2.mass) / (self.obj1.mass + self.obj2.mass)
         return final_vx, final_vy
 
 
