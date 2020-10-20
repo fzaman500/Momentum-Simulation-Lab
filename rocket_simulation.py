@@ -10,18 +10,16 @@ Original file is located at
 import numpy as np
 import matplotlib.pyplot as plt
 
-mass = input("Enter initial mass of rocket (in kilograms):")
+mass = float(input("Enter initial mass of rocket (in kilograms):"))
 
-percent = input("Enter percentage of the rocket's mass that is fuel:")
+percent = float(input("Enter percentage of the rocket's mass that is fuel:"))
 
-thrust = input("Enter the magnitude of the thrust (in Newtons):")
+thrust = float(input("Enter the magnitude of the thrust (in Newtons):"))
 #final output is final velocity at time of burnout and v vs t of rocket
 
 def rocket_simulation(mass,percent,thrust):
-  rocket = mass
-  m_o = rocket + percent * mass
-  Mass = m_o / mass
-  vf = thrust*np.log(Mass)
+  mf = float(mass) - (float(mass)*float(percent)*0.01)
+  vf = thrust*np.log(mass/mf)
   return vf
 
 rocket_simulation(mass,percent,thrust)
