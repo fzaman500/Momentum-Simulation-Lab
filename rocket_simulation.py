@@ -7,8 +7,10 @@ Original file is located at
     https://colab.research.google.com/drive/1Rw3rLJcDj4jFRK6os7RdPRVvn6Xiv9kN
 """
 
+# Commented out IPython magic to ensure Python compatibility.
 import numpy as np
 import matplotlib.pyplot as plt
+# %matplotlib inline
 
 mass = float(input("Enter initial mass of rocket (in kilograms):"))
 
@@ -22,5 +24,17 @@ def rocket_simulation(mass,percent,thrust):
   vf = thrust*np.log(mass/mf)
   return vf
 
-rocket_simulation(mass,percent,thrust)
+vf = rocket_simulation(mass,percent,thrust)
+print(vf)
 
+"""Part 2: Plotting the function on a graph:"""
+
+y = np.linspace(0,vf)
+
+def f(x): return y- 9.8
+
+plt.xlabel('time (s)')
+plt.ylabel('velocity (m/s)')
+plt.title('Rocket Velocity vs. Time')
+
+plt.plot(f(x),y)
