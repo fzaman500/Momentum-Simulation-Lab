@@ -12,29 +12,44 @@ import numpy as np
 import matplotlib.pyplot as plt
 # %matplotlib inline
 
-mass = float(input("Enter initial mass of rocket (in kilograms):"))
+mass = float(input("Enter initial mass of rocket (in kilograms): "))
 
-percent = float(input("Enter percentage of the rocket's mass that is fuel:"))
+percent = float(input("Enter percentage of the rocket's mass that is fuel: "))
 
 thrust = float(input("Enter the magnitude of the thrust (in Newtons):"))
 #final output is final velocity at time of burnout and v vs t of rocket
 
-def rocket_simulation(mass,percent,thrust):
-  mf = float(mass) - (float(mass)*float(percent)*0.01)
-  vf = thrust*np.log(mass/mf)
-  return vf
+option = input("Would you like to enter the burn rate or exhaust speed? (If burn rate, please type 'br', if exhaust speed, please type 've': ")
+mfuel = (float(mass)*float(percent)*0.01)
+mf = (float(mass) - mfuel)
 
-vf = rocket_simulation(mass,percent,thrust)
-print(vf)
+if option == "br":
+  k = float(input("Enter the magnitude of the burn rate (in kilograms/second): "))
+  no_g = ((thrust/k)*np.log(mass/mf))
+  vf = (no_g -((9.81*mfuel)/k))
+
+elif option == 've':
+  exhaust = float(input("Enter the magnitude of the exhaust speed (in meters/second): ")) 
+  no_g = ((exhaust)*np.log(mass/mf))
+  vf = (no_g-((9.81*mfuel*exhaust)/thrust))
+
+print("The final speed of the velocity of the rocket at the time of burn out is " + str(vf) + " m/s in the y^ direction pointing away from Earth.")
+#def rocket_simulation(mass,percent,thrust,option):
 
 """Part 2: Plotting the function on a graph:"""
 
-y = np.linspace(0,vf)
+if option == "br":
+  time = mfuel/k
+if option == "ve":
+  time = (mfuel*exhaust)/thrust
+t = np.linspace(0,time)
+y = no_g - 9.81*t
 
-def f(x): return y- 9.8
+def f(y):
+  return y
 
 plt.xlabel('time (s)')
 plt.ylabel('velocity (m/s)')
 plt.title('Rocket Velocity vs. Time')
 
-plt.plot(f(x),y)
+plt.plot(t,f(y))
