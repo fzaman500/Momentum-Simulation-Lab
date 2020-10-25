@@ -23,21 +23,27 @@ option = input("Would you like to enter the burn rate or exhaust speed? (If burn
 mfuel = (float(mass)*float(percent)*0.01)
 mf = (float(mass) - mfuel)
 
+k = 1
+no_g = 1
+vf = 1
+exhaust = 1
 if option == "br":
   k = float(input("Enter the magnitude of the burn rate (in kilograms/second): "))
-  no_g = ((thrust/k)*np.log(mass/mf))
-  vf = (no_g -((9.81*mfuel)/k))
+  no_g = ((thrust/k)*np.log(mass/mfuel))
+  vf = (no_g -((9.81*mf)/k))
+
 
 elif option == 've':
   exhaust = float(input("Enter the magnitude of the exhaust speed (in meters/second): ")) 
-  no_g = ((exhaust)*np.log(mass/mf))
-  vf = (no_g-((9.81*mfuel*exhaust)/thrust))
+  no_g = ((exhaust)*np.log(mass/mfuel))
+  vf = (no_g-((9.81*mf*exhaust)/thrust))
 
 print("The final speed of the velocity of the rocket at the time of burn out is " + str(vf) + " m/s in the y^ direction pointing away from Earth.")
 #def rocket_simulation(mass,percent,thrust,option):
 
 """Part 2: Plotting the function on a graph:"""
 
+time = 1
 if option == "br":
   time = mfuel/k
 if option == "ve":
@@ -53,3 +59,4 @@ plt.ylabel('velocity (m/s)')
 plt.title('Rocket Velocity vs. Time')
 
 plt.plot(t,f(y))
+plt.show()
