@@ -46,9 +46,9 @@ if __name__ == '__main__':
         outputs = list(system.elastic_collision())
         print("Final Velocity for Object 1: ")
         print("X-Component:", outputs[0], "m/s")
-        print("Y-Component:", outputs[1], "m/s")
+        print("Y-Component:", outputs[2], "m/s")
         print("Velocity for Object 2: ")
-        print("X-Component:", outputs[2], "m/s")
+        print("X-Component:", outputs[1], "m/s")
         print("Y-Component:", outputs[3], "m/s")
     else:
         outputs = list(system.inelastic_collision())
